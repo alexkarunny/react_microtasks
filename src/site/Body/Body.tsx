@@ -1,5 +1,6 @@
 import {MapComp} from "./MapComp";
 import {Button} from "./Button";
+import {useState} from "react";
 
 
 type BodyType = {
@@ -35,14 +36,29 @@ export const Body = (props: BodyType) => {
         console.log('I\'m stupid')
     }
 
+    let [a, setA] = useState<number>(0);
+
+    const increaseA = () => {
+        setA(++a)
+    }
+
+    const decreaseA = () => {
+        setA(--a)
+    }
+
+    const resetA = () => {
+        setA(0)
+    }
+
     return (
         <div>
             {props.titleForBody}
             <MapComp topCars={topCars}/>
-            <Button title={'First'} callback={() => Button1('First', 21)}/>
-            <Button title={'Second'} callback={() => Button2('Second')}/>
-            <Button title={'Third'} callback={Button3}/>
 
+            <Button title={'+'} callback={increaseA}/>
+            <Button title={'-'} callback={decreaseA}/>
+            <Button title={'0'} callback={resetA}/>
+            <h1>{a}</h1>
         </div>
     );
 }
