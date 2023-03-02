@@ -1,6 +1,7 @@
 import {MapComp} from "./MapComp";
 import {Button} from "./Button";
 import {useState} from "react";
+import {BankFilter} from "./BanlnoteFilter";
 
 
 type BodyType = {
@@ -23,11 +24,14 @@ const topCars: Array<CarPropsType> = [
 ]
 
 
-type BanknoteType = {
+export type BanknoteType = {
     banknots: string
     value: number
     number: string
 }
+
+export type FilterType = 'All' | "Dollars" | 'Rubles'
+
 
 export const Body = (props: BodyType) => {
 
@@ -42,7 +46,21 @@ export const Body = (props: BodyType) => {
         {banknots: 'RUBLS', value: 50, number: ' v1234567890'},
     ])
 
+    const [filter, setFilter] = useState<FilterType>('All')
 
+    let filteredMoney = money;
+
+    const onClickHandler = (filter: FilterType) => {
+        setFilter(filter)
+    }
+    if (filter === "Rubles") {
+        filteredMoney = filteredMoney.filter(i => i.banknots === 'RUBLS')
+    }
+    if (filter === "Dollars") {
+        filteredMoney = filteredMoney.filter(i => i.banknots === 'Dollars')
+    }
+
+    console.log(filter);
     const Button1 = (subscriber: string, age: number) => {
         console.log(subscriber)
     }
@@ -79,19 +97,7 @@ export const Body = (props: BodyType) => {
             <Button title={'0'} callback={resetA}/>
             <h1>{a}</h1>
 
-            <ul>
-                {
-                    money.map((i) => {
-                        return (
-                            <li key={i.number}>
-                                <span>{i.number}</span>
-                                <span>{i.banknots}</span>
-                                <span>{i.value}</span>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
+            <BankFilter money={filteredMoney} callback={onClickHandler}/>
 
         </div>
     );
