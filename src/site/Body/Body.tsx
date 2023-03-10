@@ -2,6 +2,7 @@ import {MapComp} from "./MapComp";
 import {Button} from "./Button";
 import {useState} from "react";
 import {BankFilter} from "./BanlnoteFilter";
+import { List } from "./List";
 
 
 type BodyType = {
@@ -98,6 +99,8 @@ export const Body = (props: BodyType) => {
             <h1>{a}</h1>
 
             <BankFilter money={filteredMoney} callback={onClickHandler}/>
+
+            <List />
 
         </div>
     );
